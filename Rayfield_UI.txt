@@ -564,6 +564,7 @@ local Players = game:GetService("Players")
 -- Interface Management
 
 local Rayfield = useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://10804731440")[1]
+Rayfield.Parent = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui')
 local buildAttempts = 0
 local correctBuild = false
 local warned
@@ -589,12 +590,14 @@ repeat
 	buildAttempts = buildAttempts + 1
 until buildAttempts >= 2
 
+Rayfield.Parent = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui')
+
 Rayfield.Enabled = false
 
 if gethui then
 	Rayfield.Parent = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui')
 elseif syn and syn.protect_gui then 
-	syn.protect_gui(Rayfield)
+	--syn.protect_gui(Rayfield)
 	Rayfield.Parent = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui')
 elseif not useStudio and CoreGui:FindFirstChild("RobloxGui") then
 	Rayfield.Parent = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui')
@@ -650,7 +653,7 @@ Rayfield.DisplayOrder = 100
 LoadingFrame.Version.Text = Release
 
 
-local Icons = useStudio and require(script.Parent.icons) or loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/refs/heads/main/icons.lua'))()
+local Icons = useStudio and require(script.Parent.icons) -- or loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/refs/heads/main/icons.lua'))()
 
 -- Variables
 
@@ -885,7 +888,7 @@ local function SaveConfiguration()
 		if script.Parent:FindFirstChild('configuration') then script.Parent.configuration:Destroy() end
 
 		local ScreenGui = Instance.new("ScreenGui")
-		ScreenGui.Parent = script.Parent
+		ScreenGui.Parent = game:GetService('Players').LocalPlayer.PlayerGui
 		ScreenGui.Name = 'configuration'
 
 		print('studio')
